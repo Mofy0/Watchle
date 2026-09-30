@@ -1,4 +1,4 @@
-# Worldle-For-Smartwatch
+# Watchle
 wordle on Xiaomi watch 
 
 Used API:
