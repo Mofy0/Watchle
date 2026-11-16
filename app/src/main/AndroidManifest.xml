@@ -45,6 +45,10 @@
             android:name=".presentation.EmptyActivity"
             android:exported="true"
             android:taskAffinity="" />
+        <activity
+            android:name=".presentation.TestActivity"
+            android:exported="true"
+            android:taskAffinity="" />
     </application>
 
 </manifest>

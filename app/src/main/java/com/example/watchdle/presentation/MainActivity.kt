@@ -53,7 +53,10 @@ fun WearApp(greetingName: String) {
                 scrollState = listState,
                 edgeButton = {
                     EdgeButton(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            val intent = Intent(context, TestActivity::class.java)
+                            context.startActivity(intent)
+                        },
                         colors =
                             ButtonDefaults.buttonColors(
                                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -108,12 +111,5 @@ fun WearApp(greetingName: String) {
             }
         }
     }
-}
-
-@WearPreviewDevices
-@WearPreviewFontScales
-@Composable
-fun DefaultPreview() {
-    WearApp("Preview Android")
 }
 
