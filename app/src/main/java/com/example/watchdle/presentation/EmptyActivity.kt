@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.AppScaffold
@@ -31,6 +32,7 @@ class EmptyActivity : ComponentActivity() {
 }
 
 @Composable
+@Preview
 fun EmptyScreen() {
     WatchdleTheme {
         AppScaffold() {
@@ -48,8 +50,31 @@ fun EmptyScreen() {
                                 .transformedHeight(this, transformationSpec),
                             transformation = SurfaceTransformation(transformationSpec),
                         ) {
-                            Text("Tu nic nie ma")
+                            Text("STATYSTYKI")
                         }
+
+                    }
+                    item {
+                        ListHeader(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .transformedHeight(this, transformationSpec),
+                            transformation = SurfaceTransformation(transformationSpec),
+                        ) {
+                            Text("Ilość odgadniętych słów: 0")
+                        }
+
+                    }
+                    item {
+                        ListHeader(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .transformedHeight(this, transformationSpec),
+                            transformation = SurfaceTransformation(transformationSpec),
+                        ) {
+                            Text("Ilość nie odgadniętych słów: 0 ")
+                        }
+
                     }
                     item {
                         Button(

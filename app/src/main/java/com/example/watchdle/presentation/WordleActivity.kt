@@ -1,5 +1,6 @@
 package com.example.watchdle.presentation
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -35,6 +36,8 @@ import androidx.wear.compose.material3.lazy.rememberTransformationSpec
 import androidx.wear.compose.material3.lazy.transformedHeight
 import com.example.watchdle.presentation.theme.WatchdleTheme
 import android.app.RemoteInput
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.wear.input.RemoteInputIntentHelper
 import androidx.wear.input.wearableExtender
 
@@ -55,7 +58,6 @@ fun getTopWord(): String {
 @Composable
 @Preview
 fun WordleScreen() {
-    val inputKey = "wordle_input_key"
     WatchdleTheme {
         AppScaffold() {
             val context = LocalContext.current
@@ -64,6 +66,17 @@ fun WordleScreen() {
 
             var topWord by remember {
                 mutableStateOf("Tu się wyświetli Słowo")
+            }
+            val inputKey = "wordle_input_key"
+            val textFromKeyboard = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.StartActivityForResult()
+            ) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val data = result.data ?: return@rememberLauncherForActivityResult
+                    val results = RemoteInput.getResultsFromIntent(data)
+                    val input = results?.getCharSequence(inputKey)
+                    topWord = input.toString()
+                }
             }
             ScreenScaffold(
                 scrollState = listState,
@@ -94,9 +107,13 @@ fun WordleScreen() {
                                                 }
                                                 .build()
                                         )
-                                        val intent =  RemoteInputIntentHelper.createActionRemoteInputIntent()
-                                        RemoteInputIntentHelper.putRemoteInputsExtra(intent, remoteInputs)
-                                        context.startActivity(intent)
+                                        val intent =
+                                            RemoteInputIntentHelper.createActionRemoteInputIntent()
+                                        RemoteInputIntentHelper.putRemoteInputsExtra(
+                                            intent,
+                                            remoteInputs
+                                        )
+                                        textFromKeyboard.launch(intent)
                                     },
 
                                 horizontalArrangement = Arrangement.spacedBy(
