@@ -104,7 +104,7 @@ fun WearApp(greetingName: String) {
                                 .transformedHeight(this, transformationSpec),
                             transformation = SurfaceTransformation(transformationSpec),
                         ) {
-                            Text("Test")
+                            Text("Statystyki")
                         }
                     }
                 }
